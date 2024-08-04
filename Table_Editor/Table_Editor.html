@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可编辑表格</title>
+    <link rel="stylesheet" href="./Table_Editor.css">
+</head>
+<body>
+    <h1>可编辑表格</h1>
+    <div class="tableContainer">
+        <div id="buttonContainer"></div>
+        <table id="editableTable">
+            <thead>
+                <tr>
+                    <th contenteditable="true"> </th>
+                    <th contenteditable="true"> </th>
+                    <th contenteditable="true"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true"> </td>
+                    <td contenteditable="true"> </td>
+                    <td contenteditable="true"> </td>
+                </tr>
+                <tr>
+                    <td contenteditable="true"> </td>
+                    <td contenteditable="true"> </td>
+                    <td contenteditable="true"> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn" id="mergeCells">Merge cells</button>
+    <button class="btn" id="splitCell">Split cell</button>
+    <button class="btn" id="exportTable">Export</button>
+    <button class="btn" id="importTable">Import</button>
+
+    <textarea id="exportTextarea"></textarea>
+
+    <script src="./Add_Delete.js"></script>
+    <script src="./Merge_Split.js"></script>
+    <script src="./Export_Import.js"></script>
+</body>
+
