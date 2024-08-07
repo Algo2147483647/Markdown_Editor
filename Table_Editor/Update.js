@@ -1,4 +1,27 @@
 
+
+
+function getMergeCellsArray() {
+    var table = document.getElementById("editableTable");
+    const rows = table.rows;
+    MergeCellsArray = Set()
+
+    for (let i = 0; i < rows.length; i++) {
+        for (let j = 0; j < rows[i].cells.length; j++) {
+            let cell = rows[i].cells[j];
+            let rowSpan = cell.rowSpan || 1;
+            let colSpan = cell.colSpan || 1;
+
+            if (rowSpan > 1 || colSpan > 1) {
+                MergeCellsArray.add([i, j, i + rowSpan, j + colSpan,text])
+            }
+        }
+    }
+    return MergeCellsArray;
+}
+
+
+
 function update() {
     updateCellAttributes();
     updateButtonContainer();

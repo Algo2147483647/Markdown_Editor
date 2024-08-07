@@ -3,7 +3,6 @@ document.getElementById('exportTable').addEventListener('click', function() {
     tableHtml = tableHtml.replace(/ contenteditable="[^"]*"/g, '');
     tableHtml = tableHtml.replace(/ id="[^"]*"/g, '');
     tableHtml = tableHtml.replace(/ class="[^"]*"/g, '');
-    tableHtml = tableHtml.replace(/ data-position="[^"]*"/g, '');
     tableHtml = formatTableHTML(tableHtml)
     tableHtml = tableHtml.replace(/\n\n/g, "\n");
     tableHtml = tableHtml.replace(" xmlns=\"http://www.w3.org/1999/xhtml\"", "");
