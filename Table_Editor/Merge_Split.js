@@ -27,6 +27,7 @@ document.getElementById('mergeCells').addEventListener('click', function() {
     } else {
         alert('请至少选择两个单元格进行合并');
     }
+    update();
     clearSelection();
 });
 
@@ -58,6 +59,7 @@ document.getElementById('splitCell').addEventListener('click', function() {
     } else {
         alert('请先选择一个已合并的单元格进行拆分');
     }
+    update();
     clearSelection();
 });
 
