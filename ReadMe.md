@@ -1,9 +1,10 @@
 - 编码方式: MarkDown
-- 编辑器: Typora
-- SVG 矢量图编辑器
+- 文本编辑
+  - Typora
+- SVG 矢量图编辑
   - Draw.io
   - PlainUml
-- 表格编辑器
+- 表格编辑
   - Table Editor
 - 文件管理
   - File Tree

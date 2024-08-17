@@ -1,11 +1,4 @@
-let dag = {};
-
-// Load data (assuming it's stored in a file named `dag.json`)
-fetch('./.admin/cellLib.json').then(response => response.json()).then(data => {
-    dag = data;
-});
-
-function drawDAG(root) {
+function drawDAG(root, dag) {
     // init SVG
     const svgContainer = document.getElementById('svg-container');
     while (svgContainer.firstChild) {
@@ -17,16 +10,14 @@ function drawDAG(root) {
     svg.setAttribute("height", "10000");
     svgContainer.appendChild(svg);
     
-    // if input root
+    // if the input root is empty, create a virtual root
     if (root === "") {
-        const virtualRoot = {
-            name: "root",
-            kid: findRoots(),
-            url: "#"
-        };
-
-        dag[virtualRoot.name] = virtualRoot;
         root = "root";
+        dag[root] = {
+            name: "root",
+            kid: getAllRoots(),
+            path: "/"
+        };
     }
 
     // Graph
@@ -52,14 +43,14 @@ function drawDAG(root) {
     }
 }
 
-function findRoots() {
-    const allNodes = new Set(Object.keys(dag));
-    for (let nodeName in dag) {
-        for (let kid of dag[nodeName].kid) {
-            allNodes.delete(kid);
+function getAllRoots() {
+    const results = new Set(Object.keys(dag));
+    for (let [_, value] of Object.entries(dag)) {
+        for (let kid of value.kid) {
+            results.delete(kid);
         }
     }
-    return Array.from(allNodes);
+    return Array.from(results);
 }
 
 function bfs(root) {
@@ -70,9 +61,11 @@ function bfs(root) {
     while (queue.length) {
         const n = queue.length;
         level += 1;
+
         for (let i = 0; i < n; i++) {
             const node = queue.shift();
             position[node.name] = [level, i];
+
             node.kid.forEach(kidName => {
                 const kid = dag[kidName];
                 if (!(kidName in position)) {

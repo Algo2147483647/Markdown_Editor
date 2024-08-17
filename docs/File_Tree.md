@@ -19,11 +19,11 @@
 - All concepts together form a directed acyclic graph.
 - Specific implementation reference `./admin/`
 
-![example](example.png)
+![example](./assets/example.png)
 
 ## System
 
-<img src="./System.svg" alt="System" style="zoom:16%;" />
+<img src="./assets/System.svg" alt="System" style="zoom:16%;" />
 
 ### Analysis Notes Repository & build DAG
 

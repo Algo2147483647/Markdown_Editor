@@ -22,5 +22,7 @@ If a row or column that needs to be deleted crosses a merged region in the table
 
 ### Merge cells & Split a cell
 
-### 
+## Reference
+
+- [HTML Tables generator – TablesGenerator.com](https://www.tablesgenerator.com/html_tables#google_vignette)
 
