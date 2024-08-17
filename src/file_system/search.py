@@ -11,6 +11,7 @@ def search_from_file(file_path, regex_pattern):
     :return: List of tuples with (line number, line content) for lines containing the keyword.
     """
     results = []
+    print(file_path)
     with open(file_path, 'r', encoding='utf-8') as file:
         for i, line in enumerate(file, 1):
             if re.search(regex_pattern, line):
@@ -49,7 +50,7 @@ def search_from_folder(folder_path, regex_pattern):
     for root, dirs, files in os.walk(folder_path):
         for file_name in files:
             file_path = os.path.join(root, file_name)
-            if os.path.isfile(file_path):
+            if os.path.isfile(file_path) and file_name.endswith(".md"):
                 search_results = search_from_file(file_path, regex_pattern)
                 if search_results:
                     all_results[file_path] = search_results

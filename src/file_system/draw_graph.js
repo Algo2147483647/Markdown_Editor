@@ -35,7 +35,7 @@ function drawDAG(root, dag) {
         value[1] = (elements_num_max * 50) / elements_num[value[0]] * (value[1] + 0.5);
         value[0] = (value[0] + 1) * 300 - 200;
     }
-
+    console.log([root, dag[root]])
     draw(svg, dag[root], position, new Set());
 
     if(root === "root") {
@@ -98,10 +98,10 @@ function draw(svg, node, position, visited) {
     });
 
     [x, y] = position[node.name];
-    drawNode(svg, x, y, node.name, node.url);
+    drawNode(svg, x, y, node.name, node.path);
 }
 
-function drawNode(svg, x, y, node_name, node_url) {
+function drawNode(svg, x, y, node_name, node_path) {
     const radius = 8;
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", x);
@@ -120,10 +120,10 @@ function drawNode(svg, x, y, node_name, node_url) {
 
     const circleLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
     circleLink.setAttribute("href", "javascript:void(0)");  // You can use this to prevent default link action
-    circleLink.addEventListener('click', () => drawDAG(node_name));
+    circleLink.addEventListener('click', () => drawDAG(node_path, dag));
 
     const textLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
-    textLink.setAttribute("href", node_url);
+    textLink.setAttribute("href", node_path);
 
     circleLink.appendChild(circle);
     textLink.appendChild(text);
