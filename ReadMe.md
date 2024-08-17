@@ -1,10 +1,12 @@
-- 编码方式: MarkDown
-- 文本编辑
+- Encoding
+  - MarkDown
+- Text Editing
   - Typora
-- SVG 矢量图编辑
+- SVG Editing
   - Draw.io
   - PlainUml
-- 表格编辑
+- Table Editing
   - Table Editor
-- 文件管理
-  - File Tree
+- File Management
+  - Draw File Graph
+  - Search
