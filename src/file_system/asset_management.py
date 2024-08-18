@@ -2,7 +2,7 @@ import os
 import re
 
 
-def get_useless_resources(folder_path):
+def get_useless_assets(folder_path):
     assets_all = []
 
     # Collect all asset files in "assets" directories
@@ -35,6 +35,42 @@ def get_useless_resources(folder_path):
     results = [element for element in assets_all if element not in assets_used]
     return results
 
-result = get_useless_resources('C:/Algo/Notes/Science/')
-for asset in sorted(result):
-    print(asset)
+
+def rename_asset(path, newname):
+    # Get the directory and asset name
+    directory, oldname = os.path.split(path)
+    newpath = os.path.join(directory, newname)
+
+    # Rename the asset file
+    if os.path.exists(path):
+        os.rename(path, newpath)
+        print(f"Renamed asset: {oldname} to {newname}")
+    else:
+        print(f"Asset {oldname} not found in the specified path.")
+        return
+
+    # Compile regex pattern to match Markdown links
+    pattern = re.compile(r'\[.*?\]\((.*?)\)')
+
+    # Iterate through all .md files in the parent directory
+    directory = os.path.dirname(path)
+
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.md'):
+                filepath = os.path.join(root, file)
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                # Replace old asset name with newname in Markdown links
+                updated_content = re.sub(pattern, lambda m: m.group(0).replace(oldname, newname), content)
+
+                # Write back to the file if changes were made
+                if updated_content != content:
+                    with open(filepath, 'w', encoding='utf-8') as f:
+                        f.write(updated_content)
+                    print(f"Updated {file} with new asset name: {newname}")
+
+
+def move_assets(path, newpath):
+    return

@@ -5,9 +5,9 @@
     <title>Asset Management</title>
 
     <script>
-    async function get_useless_resources() {
+    async function get_useless_assets() {
         const path = document.getElementById('path').value;
-        const url = 'http://localhost:5000/file_system/get_useless_resources';
+        const url = 'http://localhost:5000/file_system/get_useless_assets';
 
         try {
             const response = await fetch(url, {
@@ -51,7 +51,7 @@
 <body>
     <label for="path">Enter Path:</label>
     <input type="text" id="path" name="path">
-    <button onclick="get_useless_resources()">Submit</button>
+    <button onclick="get_useless_assets()">Submit</button>
 
     <div id="searchResults"></div>
 </body>

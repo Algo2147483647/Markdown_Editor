@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from build_graph_from_markdown import build_graph_from_markdown_folder
 from search import search_from_folder
-from asset_management import get_useless_resources
+from asset_management import get_useless_assets
 
 app = Flask(__name__)
 CORS(app)
@@ -30,11 +30,11 @@ def Service_search():
         return {"status": "error", "message": "Missing 'url' parameter"}, 400
 
 
-@app.route('/file_system/get_useless_resources', methods=['POST'])
-def Service_get_useless_resources():
+@app.route('/file_system/get_useless_assets', methods=['POST'])
+def Service_get_useless_assets():
     path = request.json.get('path')
     if path:
-        resp = get_useless_resources(path)
+        resp = get_useless_assets(path)
         return {"status": "success", "data": resp}, 200
     else:
         return {"status": "error", "message": "Missing 'url' parameter"}, 400
