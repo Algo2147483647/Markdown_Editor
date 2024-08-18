@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asset Management</title>
+
+    <script>
+    async function get_useless_resources() {
+        const path = document.getElementById('path').value;
+        const url = 'http://localhost:5000/file_system/get_useless_resources';
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({path}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            results = (await response.json())["data"];
+        } catch (error) {
+            console.error('Error:', error);
+            return
+        }
+
+        const searchResultsElement = document.getElementById('searchResults');
+        searchResultsElement.innerHTML = ''; // Clear previous results
+
+        const table = document.createElement('table');
+        const headerRow = table.insertRow();
+        const fileHeader = headerRow.insertCell(0);
+        fileHeader.textContent = 'File';
+
+        for (const item of results) {
+            const row = table.insertRow();
+            const fileCell = row.insertCell(0);
+            const fileLink = document.createElement('a');
+            fileLink.href = item;
+            fileLink.textContent = item.split('\\').pop().split('.').slice(0, -1).join('.');
+            fileCell.appendChild(fileLink);
+        }
+        searchResultsElement.appendChild(table);
+    }
+    </script>
+</head>
+<body>
+    <label for="path">Enter Path:</label>
+    <input type="text" id="path" name="path">
+    <button onclick="get_useless_resources()">Submit</button>
+
+    <div id="searchResults"></div>
+</body>
+</html>

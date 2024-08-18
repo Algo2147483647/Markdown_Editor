@@ -35,7 +35,7 @@ function drawDAG(root, dag) {
         value[1] = (elements_num_max * 50) / elements_num[value[0]] * (value[1] + 0.5);
         value[0] = (value[0] + 1) * 300 - 200;
     }
-    console.log([root, dag[root]])
+
     draw(svg, dag[root], position, new Set());
 
     if(root === "root") {
@@ -124,6 +124,7 @@ function drawNode(svg, x, y, node_name, node_path) {
 
     const textLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
     textLink.setAttribute("href", node_path);
+    textLink.setAttribute("target", "_blank");
 
     circleLink.appendChild(circle);
     textLink.appendChild(text);
