@@ -3,6 +3,7 @@ from flask_cors import CORS
 from build_graph_from_markdown import build_graph_from_markdown_folder
 from search import search_from_folder
 from asset_management import get_useless_assets
+from asset_management import rename_asset
 
 app = Flask(__name__)
 CORS(app)
@@ -35,6 +36,17 @@ def Service_get_useless_assets():
     path = request.json.get('path')
     if path:
         resp = get_useless_assets(path)
+        return {"status": "success", "data": resp}, 200
+    else:
+        return {"status": "error", "message": "Missing 'url' parameter"}, 400
+
+
+@app.route('/file_system/rename_asset', methods=['POST'])
+def Service_rename_asset():
+    path    = request.json.get('path')
+    newname = request.json.get('newname')
+    if path:
+        resp = rename_asset(path, newname)
         return {"status": "success", "data": resp}, 200
     else:
         return {"status": "error", "message": "Missing 'url' parameter"}, 400

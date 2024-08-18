@@ -47,23 +47,27 @@ def rename_asset(path, newname):
         print(f"Renamed asset: {oldname} to {newname}")
     else:
         print(f"Asset {oldname} not found in the specified path.")
-        return
+        return False
 
     # Compile regex pattern to match Markdown links
-    pattern = re.compile(r'\[.*?\]\((.*?)\)')
+    pattern_1 = re.compile(r'\[.*?\]\((.*?)\)')
+    pattern_2 = re.compile(r'<img[^>]+src="([^"]+)"')
 
     # Iterate through all .md files in the parent directory
-    directory = os.path.dirname(path)
+    directory = os.path.dirname(directory)
+    print(directory)
 
     for root, _, files in os.walk(directory):
         for file in files:
+            print(file)
             if file.endswith('.md'):
                 filepath = os.path.join(root, file)
                 with open(filepath, 'r', encoding='utf-8') as f:
                     content = f.read()
 
                 # Replace old asset name with newname in Markdown links
-                updated_content = re.sub(pattern, lambda m: m.group(0).replace(oldname, newname), content)
+                updated_content = re.sub(pattern_1, lambda m: m.group(0).replace(oldname, newname), content)
+                updated_content = re.sub(pattern_2, lambda m: m.group(0).replace(oldname, newname), updated_content)
 
                 # Write back to the file if changes were made
                 if updated_content != content:
@@ -71,6 +75,7 @@ def rename_asset(path, newname):
                         f.write(updated_content)
                     print(f"Updated {file} with new asset name: {newname}")
 
+    return True
 
 def move_assets(path, newpath):
     return

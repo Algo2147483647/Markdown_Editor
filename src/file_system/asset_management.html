@@ -46,12 +46,40 @@
         }
         searchResultsElement.appendChild(table);
     }
+
+    async function rename_asset() {
+        const path    = document.getElementById('path').value;
+        const newname = document.getElementById('newname').value;
+        const url = 'http://localhost:5000/file_system/rename_asset';
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({path, newname}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            result = (await response.json())["data"];
+        } catch (error) {
+            console.error('Error:', error);
+            return
+        }
+    }
     </script>
 </head>
 <body>
     <label for="path">Enter Path:</label>
     <input type="text" id="path" name="path">
     <button onclick="get_useless_assets()">Submit</button>
+
+    <input type="text" id="newname" name="newname">
+    <button onclick="rename_asset()">rename</button>
 
     <div id="searchResults"></div>
 </body>
