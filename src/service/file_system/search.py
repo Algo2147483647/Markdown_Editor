@@ -1,7 +1,6 @@
 import os
 import re
 
-
 def search_from_file(file_path, regex_pattern):
     """
     Searches for the keyword in a file and returns a list of tuples containing the line number and the line content.

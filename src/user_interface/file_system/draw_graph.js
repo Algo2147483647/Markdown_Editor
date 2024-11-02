@@ -9,96 +9,38 @@ function drawDAG(root, dag) {
     svg.setAttribute("width", "10000");
     svg.setAttribute("height", "10000");
     svgContainer.appendChild(svg);
-    
-    // if the input root is empty, create a virtual root
-    if (root === "") {
-        root = "root";
-        dag[root] = {
-            name: "root",
-            kid: getAllRoots(),
-            path: "/"
-        };
-    }
-
-    // Graph
-    position = bfs(root);
 
     let elements_num = Array(100).fill(0);
-    for (let key in position) {
-        let value = position[key];
-        elements_num[value[0]] = Math.max(elements_num[value[0]], value[1] + 1);
+    for (let key in dag) {
+        let coordinate = dag[key]["coordinate"];
+        elements_num[coordinate[0]] = Math.max(elements_num[coordinate[0]], coordinate[1] + 1);
     }
 
     let elements_num_max = Math.max(...elements_num);
-    for (let key in position) {
-        let value = position[key];
-        value[1] = (elements_num_max * 50) / elements_num[value[0]] * (value[1] + 0.5);
-        value[0] = (value[0] + 1) * 300 - 200;
+    for (let key in dag) {
+        let coordinate = dag[key]["coordinate"];
+        dag[key]["coordinate"][1] = (elements_num_max * 50) / elements_num[coordinate[0]] * (coordinate[1] + 0.5);
+        dag[key]["coordinate"][0] = (coordinate[0] + 1) * 300 - 200;
     }
 
-    draw(svg, dag[root], position, new Set());
-
-    if(root === "root") {
-        delete dag[root];
-    }
+    drawByDFS(svg, root, dag, new Set());
 }
 
-function getAllRoots() {
-    const results = new Set(Object.keys(dag));
-    for (let [_, value] of Object.entries(dag)) {
-        for (let kid of value.kid) {
-            results.delete(kid);
-        }
-    }
-    return Array.from(results);
-}
+function drawByDFS(svg, nodeKey, dag, visited) {
+    visited.add(nodeKey);
+    dag[nodeKey]["kids"].forEach(kidKey => {
+        const radius = 8;
+        drawEdge(svg,
+            dag[nodeKey]["coordinate"][0] + radius, dag[nodeKey]["coordinate"][1],
+            dag[kidKey] ["coordinate"][0] - radius, dag[kidKey] ["coordinate"][1]);
 
-function bfs(root) {
-    const position = {};
-    const queue = [dag[root]];
-    let level = -1;
-
-    while (queue.length) {
-        const n = queue.length;
-        level += 1;
-
-        for (let i = 0; i < n; i++) {
-            const node = queue.shift();
-            position[node.name] = [level, i];
-
-            node.kid.forEach(kidName => {
-                const kid = dag[kidName];
-                if (!(kidName in position)) {
-                    queue.push(kid);
-                    position[kidName] = [-1, -1];
-                }
-            });
-        }
-    }
-
-    return position;
-}
-
-function draw(svg, node, position, visited) {
-    const radius = 8;
-    
-    node.kid.forEach(kidName => {
-        const child = dag[kidName];
-
-        drawEdge(svg, 
-            position[node.name][0] + radius, 
-            position[node.name][1], 
-            position[child.name][0] - radius, 
-            position[child.name][1]);
-
-        if (!visited.has(kidName)) {
-            visited.add(kidName);
-            draw(svg, child, position, visited);
+        if (!visited.has(kidKey)) {
+            drawByDFS(svg, kidKey, dag, visited);
         }
     });
 
-    [x, y] = position[node.name];
-    drawNode(svg, x, y, node.name, node.path);
+    [x, y] = dag[nodeKey]["coordinate"];
+    drawNode(svg, x, y, nodeKey.split('\\').pop().split('.')[0], dag[nodeKey]["file_path"]);
 }
 
 function drawNode(svg, x, y, node_name, node_path) {
@@ -142,5 +84,3 @@ function drawEdge(svg, x1, y1, x2, y2) {
     path.setAttribute("stroke-width", "1");
     svg.appendChild(path);
 }
-
-

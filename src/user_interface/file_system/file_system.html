@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File System</title>
+    <style>
+        #svg-container {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        #sidebar {
+            position: fixed;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            overflow: auto;
+            background-color: #f8f8f8;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #main-content {
+            margin-left: 220px; /* Account for sidebar width + padding */
+            padding: 10px;
+        }
+    </style>
+    <script src="draw_graph.js"></script>
+    <script src="search.js"></script>
+    <script>
+        let dag = {};
+
+        async function sendRequest() {
+            const path = document.getElementById('path').value;
+            const url = 'http://localhost:5000/file_system/get_file_graph';
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ path }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                dag = JSON.parse((await response.json()).data);
+                drawDAG("root", dag);
+                displayFileTree(dag); // Call the function to display file tree
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function displayFileTree(dag) {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = '';
+
+            for (const file in dag) {
+                const item = document.createElement('div');
+                item.textContent = file;
+                sidebar.appendChild(item);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="sidebar"></div>
+    <div id="main-content">
+        <label for="path">Enter Path:</label>
+        <input type="text" id="path" name="path">
+        <button onclick="sendRequest()">Submit</button>
+
+        <input type="text" id="search" name="search" placeholder="Enter keyword">
+        <button onclick="search()">Search</button>
+        <div id="searchResults"></div>
+
+        <div id="svg-container"></div>
+    </div>
+</body>
+</html>

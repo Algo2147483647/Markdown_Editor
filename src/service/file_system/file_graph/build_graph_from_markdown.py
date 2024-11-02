@@ -1,23 +1,9 @@
 import os
 import re
 import json
-
-
-class Cell:
-    def __init__(self, name, path):
-        self.name = name
-        self.path = path
-        self.content = ""
-        self.kid = set()
-        self.parent = set()
-        
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "path": self.path,
-            "kid": list(self.kid),    # Convert set to list for JSON serialization
-            "parent": list(self.parent)  # Convert set to list
-        }
+from pathlib import Path
+from .node_definitions import Node
+from .analysis_dag import *
 
 
 def build_graph_from_markdown_folder(folder_path):
@@ -28,18 +14,19 @@ def build_graph_from_markdown_folder(folder_path):
             if os.path.isfile(file_path) and file_name.endswith(".md"):
                 build_graph_from_markdown_file(file_path, result)
 
-    result = json.dumps({key: cell.to_dict() for key, cell in result.items()})
+    result = build_coordinates_of_dag(result)
+    result = json.dumps({key: node.to_dict() for key, node in result.items()})
     return result
 
 
 def build_graph_from_markdown_file(file_path, graph):
     file_path = os.path.abspath(file_path)
+    key = file_path
     if file_path in graph:
         return graph[file_path]
 
-    graph[file_path] = Cell(
-        name=os.path.splitext(os.path.basename(file_path))[0],
-        path=file_path,
+    graph[key] = Node(
+        file_path=file_path,
     )
 
     try:
@@ -55,11 +42,11 @@ def build_graph_from_markdown_file(file_path, graph):
                 build_graph_from_markdown_file(link_path, graph)
 
                 if define_section and link in define_section:
-                    graph[file_path].parent.add(link_path)
-                    graph[link_path].kid.add(file_path)
+                    graph[file_path].parents.add(link_path)
+                    graph[link_path].kids.add(file_path)
                 else:
-                    graph[file_path].kid.add(link_path)
-                    graph[link_path].parent.add(file_path)
+                    graph[file_path].kids.add(link_path)
+                    graph[link_path].parents.add(file_path)
 
             return graph[file_path]
     except IOError:

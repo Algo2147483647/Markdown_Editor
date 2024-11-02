@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from build_graph_from_markdown import build_graph_from_markdown_folder
-from search import search_from_folder
-from asset_management import get_useless_assets
-from asset_management import rename_asset
+from file_system import build_graph_from_markdown_folder
+from file_system import search_from_folder
+from file_system import get_useless_assets
+from file_system import rename_asset
 
 app = Flask(__name__)
 CORS(app)
