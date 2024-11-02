@@ -19,7 +19,7 @@ async function get_file_graph() {
 
         dag = JSON.parse((await response.json()).data);
         drawDAGBySVG("root", dag);
-        displayFileTree(dag); // Call the function to display file tree
+        renderFileList("root", dag); // Call the function to display file tree
     } catch (error) {
         console.error('Error:', error);
     }
@@ -43,7 +43,7 @@ async function file_operation(path, operator) {
 
         dag = JSON.parse((await response.json()).data);
         drawDAGBySVG("root", dag);
-        displayFileTree(dag); // Call the function to display file tree
+        renderFileList(dag); // Call the function to display file tree
     } catch (error) {
         console.error('Error:', error);
     }
