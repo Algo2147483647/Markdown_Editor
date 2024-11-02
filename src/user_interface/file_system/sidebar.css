@@ -1,0 +1,45 @@
+#sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px; /* Slightly increase width for better spacing */
+    height: 100%;
+    overflow: auto;
+    background: linear-gradient(to bottom, #ffffff, #eeeeee); /* Gradient background */
+    border-right: 1px solid #eeeeee;
+    padding: 20px; /* Increase padding for better spacing */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: 'Arial', sans-serif; /* Change font */
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.file-item-container {
+    display: flex;
+    align-items: center; /* Align icons and text */
+    margin: 4px 0; /* Space between items */
+    padding: 2px; /* Padding for each item */
+    border-radius: 4px; /* Rounded corners for items */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.file-item-container:hover {
+    background-color: #d7e1e7; /* Change background on hover */
+}
+
+.collapse-icon, .add-icon {
+    margin-right: 8px; /* Space between icon and text */
+    font-weight: bold; /* Emphasize icons */
+    cursor: pointer; /* Pointer cursor for icons */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.collapse-icon:hover, .add-icon:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.file-item-text {
+    flex-grow: 1; /* Allow text to grow and fill space */
+    font-size: 16px; /* Increase font size for better readability */
+    color: #333; /* Darker text for contrast */
+}
+

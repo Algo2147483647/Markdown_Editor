@@ -1,4 +1,4 @@
-function drawDAG(root, dag) {
+function drawDAGBySVG(root, dag) {
     // init SVG
     const svgContainer = document.getElementById('svg-container');
     while (svgContainer.firstChild) {
@@ -19,8 +19,9 @@ function drawDAG(root, dag) {
     let elements_num_max = Math.max(...elements_num);
     for (let key in dag) {
         let coordinate = dag[key]["coordinate"];
-        dag[key]["coordinate"][1] = (elements_num_max * 50) / elements_num[coordinate[0]] * (coordinate[1] + 0.5);
-        dag[key]["coordinate"][0] = (coordinate[0] + 1) * 300 - 200;
+        dag[key]["coordinate_SVG"] = coordinate;
+        dag[key]["coordinate_SVG"][1] = (elements_num_max * 50) / elements_num[coordinate[0]] * (coordinate[1] + 0.5);
+        dag[key]["coordinate_SVG"][0] = (coordinate[0] + 1) * 300 - 200;
     }
 
     drawByDFS(svg, root, dag, new Set());
@@ -31,16 +32,17 @@ function drawByDFS(svg, nodeKey, dag, visited) {
     dag[nodeKey]["kids"].forEach(kidKey => {
         const radius = 8;
         drawEdge(svg,
-            dag[nodeKey]["coordinate"][0] + radius, dag[nodeKey]["coordinate"][1],
-            dag[kidKey] ["coordinate"][0] - radius, dag[kidKey] ["coordinate"][1]);
+            dag[nodeKey]["coordinate_SVG"][0] + radius, dag[nodeKey]["coordinate_SVG"][1],
+            dag[kidKey] ["coordinate_SVG"][0] - radius, dag[kidKey] ["coordinate_SVG"][1]);
 
         if (!visited.has(kidKey)) {
             drawByDFS(svg, kidKey, dag, visited);
         }
     });
 
-    [x, y] = dag[nodeKey]["coordinate"];
-    drawNode(svg, x, y, nodeKey.split('\\').pop().split('.')[0], dag[nodeKey]["file_path"]);
+    [x, y] = dag[nodeKey]["coordinate_SVG"];
+    nodeText = nodeKey.split('\\').pop().split('.')[0].replace(/_/g, ' ')
+    drawNode(svg, x, y, nodeText, dag[nodeKey]["file_path"]);
 }
 
 function drawNode(svg, x, y, node_name, node_path) {
@@ -49,15 +51,17 @@ function drawNode(svg, x, y, node_name, node_path) {
     circle.setAttribute("cx", x);
     circle.setAttribute("cy", y);
     circle.setAttribute("r", radius);
-    circle.setAttribute("stroke", "red");
-    circle.setAttribute("fill", "#FF8888");
+    circle.setAttribute("stroke", "#FF6347"); // Tomato color for stroke
+    circle.setAttribute("fill", "#FFB6C1"); // Light pink for fill
     circle.setAttribute("stroke-width", "2");
 
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", x + radius * 1.5);
     text.setAttribute("y", y + radius / 1.25);
-    text.setAttribute("font-family", "Times New Roman");
-    text.setAttribute("font-size", "20");
+    text.setAttribute("font-family", "Georgia, serif"); // More elegant font
+    text.setAttribute("font-style", "italic"); // Italicize the text
+    text.setAttribute("font-size", "16");
+    text.setAttribute("fill", "#333"); // Darker color for text
     text.textContent = node_name;
 
     const circleLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
