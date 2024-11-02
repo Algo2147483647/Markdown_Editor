@@ -1,9 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from file_system import build_graph_from_markdown_folder
-from file_system import search_from_folder
-from file_system import get_useless_assets
-from file_system import rename_asset
+from file_system import *
 
 app = Flask(__name__)
 CORS(app)
@@ -11,7 +8,7 @@ CORS(app)
 
 # GET 请求 - 获取特定项目
 @app.route('/file_system/get_file_graph', methods=['POST'])
-def Service_getFileGraph():
+def get_file_graph():
     path = request.json.get('path')
     if path:
         resp = build_graph_from_markdown_folder(path)
@@ -21,11 +18,21 @@ def Service_getFileGraph():
 
 
 @app.route('/file_system/search', methods=['POST'])
-def Service_search():
+def search_file():
     path = request.json.get('path')
     keyword = request.json.get('keyword')
     if path:
         resp = search_from_folder(path, keyword)
+        return {"status": "success", "data": resp}, 200
+    else:
+        return {"status": "error", "message": "Missing 'url' parameter"}, 400
+
+@app.route('/file_system/operate_file', methods=['POST'])
+def operate_file():
+    path = request.json.get('path')
+    operator = request.json.get('operator')
+    if path:
+        resp = operate_file(path, operator)
         return {"status": "success", "data": resp}, 200
     else:
         return {"status": "error", "message": "Missing 'url' parameter"}, 400

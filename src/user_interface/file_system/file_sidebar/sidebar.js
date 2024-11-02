@@ -38,16 +38,15 @@ function displayFileTreeByDFS(sidebar, nodeKey, dag, visited, level) {
         // Implement logic to add a file (e.g., prompt user for file name)
         const fileName = prompt("Enter file name:");
         if (fileName) {
-            // Logic to add the file in the dag structure
-            // e.g., dag[nodeKey]["kids"].push(fileName);
-            // Display the new file in the tree
+            const path = nodeKey + fileName;
+            file_operation(path, "create");
             displayFileTreeByDFS(childrenContainer, fileName, dag, visited, level + 1);
         }
     };
 
     // Create file item text
     const itemText = document.createElement('span');
-    itemText.textContent = nodeKey.split('\\').pop().split('.')[0];
+    itemText.textContent = nodeKey.split('\\').pop().split('.')[0].replace(/_/g, ' ');
     itemText.classList.add('file-item-text');
 
     // Append icons and text to the item container

@@ -31,6 +31,7 @@
     font-weight: bold; /* Emphasize icons */
     cursor: pointer; /* Pointer cursor for icons */
     transition: color 0.3s; /* Smooth color transition */
+    color: #cccccc;
 }
 
 .collapse-icon:hover, .add-icon:hover {
@@ -40,6 +41,8 @@
 .file-item-text {
     flex-grow: 1; /* Allow text to grow and fill space */
     font-size: 16px; /* Increase font size for better readability */
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    font-style: italic;
     color: #333; /* Darker text for contrast */
 }
 

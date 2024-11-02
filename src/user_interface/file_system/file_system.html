@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File System</title>
     <link rel="stylesheet" type="text/css" href="file_system.css">
-    <link rel="stylesheet" type="text/css" href="sidebar.css">
-    <script src="draw_graph.js"></script>
-    <script src="search.js"></script>
+    <link rel="stylesheet" type="text/css" href="file_sidebar/sidebar.css">
+    <script src="file_graph/file_graph.js"></script>
+    <script src="file_search/search.js"></script>
     <script src="request_service.js"></script>
-    <script src="sidebar.js"></script>
+    <script src="file_sidebar/sidebar.js"></script>
     <script>
 
     </script>
@@ -19,7 +19,7 @@
     <div id="main-content">
         <label for="path">Enter Path:</label>
         <input type="text" id="path" name="path">
-        <button onclick="sendRequest()">Submit</button>
+        <button onclick="get_file_graph()">Submit</button>
 
         <input type="text" id="search" name="search" placeholder="Enter keyword">
         <button onclick="search()">Search</button>
