@@ -46,3 +46,13 @@ async function file_operation(path, operator) {
         console.error('Error:', error);
     }
 }
+
+async function getFileContent(filePath) {
+    const url = `http://localhost:5000/file_system/operate_file?path=${encodeURIComponent(filePath)}&operator=read`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(response => response.data)
+        .then(htmlContent => renderHtmlContent(htmlContent))
+        .catch(error => console.error('Error fetching file content:', error));
+}

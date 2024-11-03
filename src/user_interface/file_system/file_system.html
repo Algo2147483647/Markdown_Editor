@@ -6,25 +6,36 @@
     <title>File System</title>
     <link rel="stylesheet" type="text/css" href="file_system.css">
     <link rel="stylesheet" type="text/css" href="file_sidebar/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="file_graph/file_graph.js"></script>
     <script src="file_search/search.js"></script>
     <script src="request_service.js"></script>
     <script src="file_sidebar/sidebar.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     <script>
 
     </script>
 </head>
 <body>
-    <div id="sidebar"></div>
+    <div id="sidebar">
+        <div class="search-container">
+            <input type="text" id="search" name="search" placeholder="Enter keyword">
+            <i class="fas fa-search" onclick="search()"></i>
+        </div>
+
+        <div id="sidebar-file"></div>
+    </div>
+
     <div id="main-content">
         <label for="path">Enter Path:</label>
         <input type="text" id="path" name="path">
         <button onclick="get_file_graph()">Submit</button>
-
-        <input type="text" id="search" name="search" placeholder="Enter keyword">
-        <button onclick="search()">Search</button>
         <div id="searchResults"></div>
-
         <div id="svg-container"></div>
     </div>
 </body>

@@ -1,8 +1,8 @@
 function renderFileList(root, dag) {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.innerHTML = '';
+    const container = document.getElementById('sidebar-file');
+    container.innerHTML = '';
 
-    renderFileListByDFS(sidebar, root, dag, 0, new Set()); // Include depth level for indentation
+    renderFileListByDFS(container, root, dag, 0, new Set()); // Include depth level for indentation
 }
 
 function renderFileListByDFS(sidebar, nodeKey, dag, level, visits) {
@@ -41,7 +41,7 @@ function renderFileListItem(container, nodeKey, dag, level) {
     itemLink.href = "#";
     itemLink.onclick = function (event) {
         event.preventDefault();
-        fetchFileContent(nodeKey);
+        getFileContent(nodeKey);
     };
     itemLink.classList.add('file-item-text');
 
@@ -55,15 +55,6 @@ function renderFileListItem(container, nodeKey, dag, level) {
     container.appendChild(childrenContainer);
 
     return childrenContainer;
-}
-
-function fetchFileContent(filePath) {
-    const url = `http://localhost:5000/operate_file?path=${encodeURIComponent(filePath)}`;
-
-    fetch(url)
-        .then(response => response.text())
-        .then(htmlContent => renderHtmlContent(htmlContent))
-        .catch(error => console.error('Error fetching file content:', error));
 }
 
 function renderHtmlContent(htmlContent) {

@@ -3,3 +3,4 @@ from .search import search_from_folder
 from .asset_management import get_useless_assets
 from .asset_management import rename_asset
 from .file_operation import *
+from .markdown_compiler import *

@@ -56,6 +56,9 @@ def service_get_operate_file():
 
     if path and operator:
         resp = operate_file(path, operator, content)
+        if operator == "read":
+            open_typora(path)
+            resp = markdown_to_html(resp)
         return jsonify({"status": "success", "data": resp}), 200
     else:
         return jsonify({"status": "error", "message": "Missing 'path' or 'operator' parameter"}), 400
