@@ -2,7 +2,7 @@ import os
 import re
 import json
 from pathlib import Path
-from .node_definitions import Node
+from .node import Node
 from .analysis_dag import *
 
 

@@ -4,13 +4,16 @@
     top: 0;
     width: 220px; /* Slightly increase width for better spacing */
     height: 100%;
-    overflow: auto;
+    overflow: auto; /* Allows vertical and horizontal scrolling */
+    overflow-x: auto; /* Explicitly allow horizontal scrolling */
     background: linear-gradient(to bottom, #ffffff, #eeeeee); /* Gradient background */
     border-right: 1px solid #eeeeee;
     padding: 20px; /* Increase padding for better spacing */
+    padding-right: 2px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     font-family: 'Arial', sans-serif; /* Change font */
     z-index: 1000; /* Ensure it's above other elements */
+    white-space: nowrap; /* Prevent wrapping and enable horizontal scrolling */
 }
 
 .file-item-container {
@@ -27,16 +30,20 @@
 }
 
 .collapse-icon, .add-icon {
-    margin-right: 8px; /* Space between icon and text */
+    margin-right: 4px; /* Space between icon and text */
     font-weight: bold; /* Emphasize icons */
     cursor: pointer; /* Pointer cursor for icons */
     transition: color 0.3s; /* Smooth color transition */
     color: #cccccc;
+    user-select: none; /* Prevent text selection */
+    font-size: 12px;
 }
 
 .collapse-icon:hover, .add-icon:hover {
     color: #007bff; /* Change color on hover */
 }
+
+.rotated { transform: rotate(90deg); /* Rotate 90 degrees */ }
 
 .file-item-text {
     flex-grow: 1; /* Allow text to grow and fill space */

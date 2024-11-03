@@ -1,4 +1,4 @@
-from .node_definitions import Node
+from .node import Node
 
 
 def build_coordinates_of_dag(dag):

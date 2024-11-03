@@ -42,8 +42,6 @@ async function file_operation(path, operator) {
         }
 
         dag = JSON.parse((await response.json()).data);
-        drawDAGBySVG("root", dag);
-        renderFileList(dag); // Call the function to display file tree
     } catch (error) {
         console.error('Error:', error);
     }
