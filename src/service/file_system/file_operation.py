@@ -22,7 +22,7 @@ def create_file(path, content = ""):
 def read_file(path):
     if not os.path.exists(path):
         return f"File not found: {path}"
-    with open(path, 'r') as file:
+    with open(path, 'r', encoding='utf-8') as file:
         return file.read()
 
 

@@ -25,15 +25,18 @@ function renderFileListItem(container, nodeKey, dag, level) {
     itemContainer.classList.add('file-item-container');
     itemContainer.style.paddingLeft = `${16 * level}px`; // Indent based on level
 
+
     // Create collapse icon
     const collapseIcon = document.createElement('span');
-    collapseIcon.textContent = "〉";
+    collapseIcon.textContent = dag[nodeKey]["kids"].length == 0 ? "•" : "v";
     collapseIcon.classList.add('collapse-icon');
     collapseIcon.style.cursor = 'pointer';
     collapseIcon.onclick = function () {
         childrenContainer.classList.toggle('hidden');
         collapseIcon.classList.toggle('rotated'); // Toggle rotation class
     };
+    itemContainer.appendChild(collapseIcon);
+
 
     // Create file item link
     const itemLink = document.createElement('a');
@@ -44,14 +47,11 @@ function renderFileListItem(container, nodeKey, dag, level) {
         getFileContent(nodeKey);
     };
     itemLink.classList.add('file-item-text');
-
-    // Append icons and text to the item container
-    itemContainer.appendChild(collapseIcon);
     itemContainer.appendChild(itemLink);
+
     container.appendChild(itemContainer);
 
     const childrenContainer = document.createElement('div');
-    childrenContainer.classList.add('hidden');
     container.appendChild(childrenContainer);
 
     return childrenContainer;

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from file_system import *
+import urllib.parse
 
 app = Flask(__name__)
 CORS(app)
@@ -57,7 +58,7 @@ def service_get_operate_file():
     if path and operator:
         resp = operate_file(path, operator, content)
         if operator == "read":
-            open_typora(path)
+            open_typora(urllib.parse.unquote(path))
             resp = markdown_to_html(resp)
         return jsonify({"status": "success", "data": resp}), 200
     else:

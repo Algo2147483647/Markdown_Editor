@@ -39,20 +39,20 @@
 }
 
 .collapse-icon, .add-icon {
-    margin-right: 4px; /* Space between icon and text */
+    margin-right: 8px; /* Space between icon and text */
     font-weight: bold; /* Emphasize icons */
     cursor: pointer; /* Pointer cursor for icons */
     transition: color 0.3s; /* Smooth color transition */
     color: #cccccc;
     user-select: none; /* Prevent text selection */
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .collapse-icon:hover, .add-icon:hover {
     color: #007bff; /* Change color on hover */
 }
 
-.rotated { transform: rotate(90deg); /* Rotate 90 degrees */ }
+.rotated { transform: rotate(-90deg); /* Rotate 90 degrees */ }
 
 .file-item-text {
     flex-grow: 1; /* Allow text to grow and fill space */
