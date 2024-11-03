@@ -29,6 +29,15 @@
     background-color: #d7e1e7; /* Change background on hover */
 }
 
+.file-item-container a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Use inherited color */
+}
+
+.file-item-container a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
 .collapse-icon, .add-icon {
     margin-right: 4px; /* Space between icon and text */
     font-weight: bold; /* Emphasize icons */
