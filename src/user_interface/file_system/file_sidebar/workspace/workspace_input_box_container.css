@@ -1,0 +1,29 @@
+.workspace_input_box_container {
+    display: none;
+    align-items: center; /* 子元素居中对齐 */
+    margin: 0px;
+    width: 100%; /* 可根据需要调整容器宽度 */
+    height: 30px;
+}
+
+.workspace_input_box_container .input-box {
+    width: 70%; /* 输入框占据整个宽度 */
+    height: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 2px; /* 输入框与按钮之间的间距 */
+    box-sizing: border-box; /* 包括内边距和边框 */
+}
+
+.btn-submit {
+    width: 25%;
+    height: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}

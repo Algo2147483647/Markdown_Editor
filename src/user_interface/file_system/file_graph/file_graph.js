@@ -1,9 +1,12 @@
 function drawDAGBySVG(root, dag) {
-    // init SVG
-    const svgContainer = document.getElementById('svg-container');
-    while (svgContainer.firstChild) {
-        svgContainer.removeChild(svgContainer.firstChild);
+    const mainContent = document.getElementById('main-content');
+    while (mainContent.firstChild) {
+        mainContent.removeChild(mainContent.firstChild);
     }
+
+    const svgContainer = document.createElement('div');
+    svgContainer.id = 'svg-container';
+    mainContent.appendChild(svgContainer);
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("width", "10000");

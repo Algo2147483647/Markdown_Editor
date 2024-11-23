@@ -1,6 +1,6 @@
-async function search() {
+async function search_keyword_from_files() {
     const path = document.getElementById('path').value;
-    const keyword = document.getElementById('search').value;
+    const keyword = document.getElementById('search_keyword_from_files').value;
     const url = 'http://localhost:5000/file_system/search';
 
     try {

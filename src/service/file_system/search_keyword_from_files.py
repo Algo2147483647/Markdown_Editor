@@ -6,7 +6,7 @@ def search_from_file(file_path, regex_pattern):
     Searches for the keyword in a file and returns a list of tuples containing the line number and the line content.
 
     :param file_path: Path to the file.
-    :param regex_pattern: Regular expression pattern to search for.
+    :param regex_pattern: Regular expression pattern to search_keyword_from_files for.
     :return: List of tuples with (line number, line content) for lines containing the keyword.
     """
     results = []
@@ -24,7 +24,7 @@ def search_from_files(folder_paths, regex_pattern):
     the values are lists of results from search_from_file.
 
     :param folder_paths: Path list to the files.
-    :param regex_pattern: Regular expression pattern to search for.
+    :param regex_pattern: Regular expression pattern to search_keyword_from_files for.
     :return: Dictionary with file names as keys and lists of tuples (line number, line content) as values.
     """
     all_results = {}
@@ -42,7 +42,7 @@ def search_from_folder(folder_path, regex_pattern):
     the values are lists of results from search_from_file.
 
     :param folder_path: Path to the folder containing the files.
-    :param regex_pattern: Regular expression pattern to search for.
+    :param regex_pattern: Regular expression pattern to search_keyword_from_files for.
     :return: Dictionary with file names as keys and lists of tuples (line number, line content) as values.
     """
     all_results = {}

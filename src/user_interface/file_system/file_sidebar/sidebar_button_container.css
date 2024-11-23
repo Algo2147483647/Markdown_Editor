@@ -1,0 +1,59 @@
+/* Container styles */
+.sidebar_button_container {
+    margin: 10px auto;
+    padding: 0;
+    width: 100%;
+    font-family: "Times New Roman", sans-serif;
+    display: flex;
+    justify-content: center; /* Center-align buttons horizontally */
+    gap: 10px; /* Add spacing between buttons */
+    user-select: none; /* Prevent text selection */
+}
+
+/* Button styles */
+.sidebar_button_container button {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    background-color: #eeeeee; /* Better contrast color */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative; /* Required for tooltip positioning */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar_button_container button:hover {
+    background-color: #007bff; /* Darker blue for hover effect */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Tooltip styles */
+.sidebar_button_container ::after {
+    content: attr(data-tooltip); /* Use data-tooltip attribute for descriptions */
+    position: absolute;
+    bottom: -100%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #000000;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none; /* Prevent interfering with hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10; /* Ensure tooltip is above other elements */
+}
+
+.sidebar_button_container button:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-4px); /* Slight bounce effect */
+}

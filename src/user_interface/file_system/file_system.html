@@ -5,32 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File System</title>
     <link rel="stylesheet" type="text/css" href="file_system.css">
-    <link rel="stylesheet" type="text/css" href="file_sidebar/sidebar.css">
-
-    <script src="file_graph/file_graph.js"></script>
-    <script src="file_search/search.js"></script>
-    <script src="request_service.js"></script>
-    <script src="file_sidebar/sidebar.js"></script>
-    <script>
-
-    </script>
 </head>
 <body>
-    <div id="sidebar">
-        <div class="search-container">
-            <input type="text" id="search" name="search" placeholder="Enter keyword">
-            <i class="fas fa-search" onclick="search()"></i>
-        </div>
+    <!-- Sidebar loaded via iframe -->
+    <iframe src="file_sidebar/sidebar.html" id="sidebar-frame" class="sidebar-frame"></iframe>
+    <style>
+        .sidebar-frame {
+            width: 250px; /* Adjust width as needed */
+            height: 100vh;
+            border: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+    </style>
 
-        <div id="sidebar-file"></div>
-    </div>
 
-    <div id="main-content">
-        <label for="path">Enter Path:</label>
-        <input type="text" id="path" name="path">
-        <button onclick="get_file_graph()">Submit</button>
-        <div id="searchResults"></div>
-        <div id="svg-container"></div>
-    </div>
+    <div id="main-content"></div>
+
 </body>
 </html>

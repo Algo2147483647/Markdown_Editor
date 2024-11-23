@@ -72,7 +72,7 @@ class Cell:
 - `drawNode` 函数，绘制图中的节点，接受节点的坐标、名称和 URL 作为参数，并创建一个包含圆形和文本的 SVG 元素。
 -  `drawEdge`函数，绘制图中的边，接受两个节点的坐标作为参数，并在 SVG 中创建一条曲线路径表示边。
 
-### search Keyword
+### search_keyword_from_files Keyword
 
  [find.html](find.html) 
 
