@@ -12,3 +12,4 @@ document.getElementById('show_sidebar_button').addEventListener('click', functio
     sidebar.classList.remove('collapsed');
     this.classList.remove('show');
 });
+

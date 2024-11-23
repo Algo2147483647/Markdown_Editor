@@ -1,11 +1,4 @@
-function renderFileList(root, dag) {
-    const container = document.getElementById('sidebar-file');
-    container.innerHTML = '';
-
-    renderFileListByDFS(container, root, dag, 0, new Set()); // Include depth level for indentation
-}
-
-function renderFileListByDFS(sidebar, nodeKey, dag, level, visits) {
+function renderFileListByDFS(dag, container, nodeKey, level, visits) {
     if (visits.has(nodeKey)) {
         return
     }else {
@@ -13,14 +6,14 @@ function renderFileListByDFS(sidebar, nodeKey, dag, level, visits) {
     }
 
     console.log(nodeKey);
-    let childrenContainer = renderFileListItem(sidebar, nodeKey, dag, level)
+    let childrenContainer = renderFileListItem(dag, container, nodeKey, level)
 
     dag[nodeKey]["kids"].forEach(kidKey => {
-        renderFileListByDFS(childrenContainer, kidKey, dag, level + 1, visits);
+        renderFileListByDFS(dag, childrenContainer, kidKey, level + 1, visits);
     });
 }
 
-function renderFileListItem(container, nodeKey, dag, level) {
+function renderFileListItem(dag, container, nodeKey, level) {
     const itemContainer = document.createElement('div');
     itemContainer.classList.add('file-item-container');
     itemContainer.style.paddingLeft = `${16 * level}px`; // Indent based on level

@@ -1,4 +1,3 @@
-let dag = {};
 
 async function get_file_graph(path) {
     const url = 'http://localhost:5000/file_system/get_file_graph';
@@ -15,10 +14,8 @@ async function get_file_graph(path) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
         dag = JSON.parse((await response.json()).data);
-        drawDAGBySVG("root", dag);
-        renderFileList("root", dag); // Call the function to display file tree
+        return dag
     } catch (error) {
         console.error('Error:', error);
     }
@@ -39,8 +36,6 @@ async function file_operation(path, operator) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
-        dag = JSON.parse((await response.json()).data);
     } catch (error) {
         console.error('Error:', error);
     }

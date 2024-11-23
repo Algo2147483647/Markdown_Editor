@@ -1,12 +1,7 @@
-function drawDAGBySVG(root, dag) {
-    const mainContent = document.getElementById('main-content');
-    while (mainContent.firstChild) {
-        mainContent.removeChild(mainContent.firstChild);
-    }
-
+function RenderDAGToSVG(dag, root, container) {
     const svgContainer = document.createElement('div');
     svgContainer.id = 'svg-container';
-    mainContent.appendChild(svgContainer);
+    container.appendChild(svgContainer);
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("width", "10000");
@@ -27,28 +22,28 @@ function drawDAGBySVG(root, dag) {
         dag[key]["coordinate_SVG"][0] = (coordinate[0] + 1) * 300 - 200;
     }
 
-    drawByDFS(svg, root, dag, new Set());
+    RenderByDFS(dag, svg, root, new Set());
 }
 
-function drawByDFS(svg, nodeKey, dag, visited) {
+function RenderByDFS(dag, svg, nodeKey, visited) {
     visited.add(nodeKey);
     dag[nodeKey]["kids"].forEach(kidKey => {
         const radius = 8;
-        drawEdge(svg,
+        RenderEdge(svg,
             dag[nodeKey]["coordinate_SVG"][0] + radius, dag[nodeKey]["coordinate_SVG"][1],
             dag[kidKey] ["coordinate_SVG"][0] - radius, dag[kidKey] ["coordinate_SVG"][1]);
 
         if (!visited.has(kidKey)) {
-            drawByDFS(svg, kidKey, dag, visited);
+            RenderByDFS(svg, kidKey, dag, visited);
         }
     });
 
     [x, y] = dag[nodeKey]["coordinate_SVG"];
     nodeText = nodeKey.split('\\').pop().split('.')[0].replace(/_/g, ' ')
-    drawNode(svg, x, y, nodeText, dag[nodeKey]["file_path"]);
+    RenderNode(dag, svg, x, y, nodeText, dag[nodeKey]["file_path"]);
 }
 
-function drawNode(svg, x, y, node_name, node_path) {
+function RenderNode(dag, svg, x, y, node_name, node_path) {
     const radius = 8;
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", x);
@@ -69,7 +64,7 @@ function drawNode(svg, x, y, node_name, node_path) {
 
     const circleLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
     circleLink.setAttribute("href", "javascript:void(0)");  // You can use this to prevent default link action
-    circleLink.addEventListener('click', () => drawDAG(node_path, dag));
+    circleLink.addEventListener('click', () => RenderDAG(node_path, dag));
 
     const textLink = document.createElementNS("http://www.w3.org/2000/svg", "a");
     textLink.setAttribute("href", node_path);
@@ -81,7 +76,7 @@ function drawNode(svg, x, y, node_name, node_path) {
     svg.appendChild(textLink);
 }
 
-function drawEdge(svg, x1, y1, x2, y2) {
+function RenderEdge(svg, x1, y1, x2, y2) {
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     const d = `M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1} ${(x1 + x2) / 2} ${y2} ${x2} ${y2}`;
 
