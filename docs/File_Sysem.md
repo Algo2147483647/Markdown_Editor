@@ -30,6 +30,6 @@ Right-clicking on a file in the file sidebar opens a context menu with these ope
 
 Users can search for specific content across files by entering a keyword or using regular expressions for more complex queries. We will return matching lines and corresponding file names and the matching keywords are highlighted.
 
-### Manegement the assets
+### Management the assets
 
-We can manegement all assets which linked to the markdown notes including rename, crud, change the path.
+We can management all assets which linked to the markdown notes including rename, crud, change the path.
