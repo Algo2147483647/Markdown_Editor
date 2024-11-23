@@ -1,4 +1,7 @@
-# Markdown Editing
+# Markdown Editor
+
+[TOC]
+
 - Encoding
   - MarkDown
 - Text Editing
