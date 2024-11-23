@@ -1,4 +1,3 @@
-
 async function get_file_graph(path) {
     const url = 'http://localhost:5000/file_system/get_file_graph';
 

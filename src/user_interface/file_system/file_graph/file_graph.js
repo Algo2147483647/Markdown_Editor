@@ -34,7 +34,7 @@ function RenderByDFS(dag, svg, nodeKey, visited) {
             dag[kidKey] ["coordinate_SVG"][0] - radius, dag[kidKey] ["coordinate_SVG"][1]);
 
         if (!visited.has(kidKey)) {
-            RenderByDFS(svg, kidKey, dag, visited);
+            RenderByDFS(dag, svg, kidKey, visited);
         }
     });
 

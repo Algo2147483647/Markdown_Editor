@@ -5,7 +5,6 @@ function renderFileListByDFS(dag, container, nodeKey, level, visits) {
         visits.add(nodeKey);
     }
 
-    console.log(nodeKey);
     let childrenContainer = renderFileListItem(dag, container, nodeKey, level)
 
     dag[nodeKey]["kids"].forEach(kidKey => {

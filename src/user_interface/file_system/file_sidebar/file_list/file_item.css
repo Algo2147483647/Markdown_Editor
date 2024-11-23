@@ -2,7 +2,7 @@
 .file-item-container {
     display: flex;
     align-items: center; /* Align icons and text */
-    margin: 4px 0; /* Space between items */
+    margin: 0px 0; /* Space between items */
     padding: 2px; /* Padding for each item */
     border-radius: 4px; /* Rounded corners for items */
     transition: background-color 0.3s; /* Smooth background transition */
@@ -22,6 +22,7 @@
 }
 
 .collapse-icon{
+    width: 24px;
     margin-right: 8px; /* Space between icon and text */
     font-weight: bold; /* Emphasize icons */
     cursor: pointer; /* Pointer cursor for icons */
