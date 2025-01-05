@@ -13,10 +13,9 @@ def move_md_file(original_md_path, new_folder_path):
     Returns:
         None
     """
-    print([original_md_path, new_folder_path])
     if not os.path.isfile(original_md_path) or not original_md_path.endswith('.md'):
         print(f"Error: Invalid Markdown file - {original_md_path}")
-        return
+        return False
 
     # Ensure the new folder exists
     os.makedirs(new_folder_path, exist_ok=True)
@@ -26,9 +25,15 @@ def move_md_file(original_md_path, new_folder_path):
 
     # Copy all referenced assets to the new folder
     for asset_path in asset_path_list:
+        original_folder_path = os.path.dirname(os.path.abspath(original_md_path)).replace('\\', '/')
+        asset_path = asset_path.replace('./', original_folder_path + '/')
+        print(asset_path)
         if os.path.isfile(asset_path):
             try:
-                shutil.copy(asset_path, new_folder_path)
+                new_assets_folder_path = os.path.join(new_folder_path, "assets")
+                os.makedirs(new_assets_folder_path, exist_ok=True)
+                shutil.copy(asset_path, new_assets_folder_path)
+                print([asset_path, new_assets_folder_path])
             except Exception as e:
                 print(f"Error copying {asset_path} to {new_folder_path}: {e}")
                 return False
