@@ -33,6 +33,19 @@ Users can search for specific content across files by entering a keyword or usin
 
 We can management all assets which linked to the markdown notes including rename, crud, change the path.
 
+move_md_file: 
+```
+curl --location 'http://localhost:5000/markdown_editor/function' \
+--header 'Content-Type: application/json' \
+--data '{
+    "function": "move_md_file",
+    "params": {
+        "original_md_path": "C:\\Algo\\Research\\Go\\docs\\go\\Go.md",
+        "new_folder_path": "C:\\Algo\\Research\\Go\\docs\\"
+    }
+}'
+```
+
 ## Editor
 
 ### Parse the Markdown files
