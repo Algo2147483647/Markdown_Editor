@@ -1,6 +1,6 @@
 import os
 import re
-
+from bs4 import BeautifulSoup
 
 def get_assets_from_md_file(file_path):
     """
@@ -29,6 +29,14 @@ def get_assets_from_md_file(file_path):
                 match[0] or match[2]  # Use the non-empty group
                 for match in matches if (match[0] or match[2])
             ]
+
+            # Parse raw HTML <img> tags
+            soup = BeautifulSoup(content, 'html.parser')
+            img_tags = soup.find_all('img')
+            for img in img_tags:
+                src = img.get('src')
+                if src:
+                    assets_path_list.append(src)
     except (FileNotFoundError, IOError):
         print(f"Error: File not found or cannot be opened - {file_path}")
     except Exception as e:

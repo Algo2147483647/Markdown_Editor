@@ -2,6 +2,7 @@ import os
 import shutil
 from .asset_management import get_assets_from_md_file, get_useless_assets
 
+
 def move_md_file(original_md_path, new_folder_path):
     """
     Moves a Markdown file and its associated assets to a new folder.
@@ -46,12 +47,16 @@ def move_md_file(original_md_path, new_folder_path):
         return False
 
     # Delete unused assets in the original folder
-    unused_assets = get_useless_assets(os.path.dirname(original_md_path))
+    return delete_unused_assets(os.path.dirname(original_md_path))
+
+
+def delete_unused_assets(assets_folder_path):
+    unused_assets = get_useless_assets(assets_folder_path)
+    print(unused_assets)
     for asset_path in unused_assets:
         try:
             os.remove(asset_path)
         except Exception as e:
             print(f"Error deleting unused asset {asset_path}: {e}")
             return False
-
     return True

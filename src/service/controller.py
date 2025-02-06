@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from md_system.md_file_operation import move_md_file
+from markdown_file_system.markdown_file_operation import move_md_file
+from markdown_file_system.markdown_file_operation import delete_unused_assets
 
 app = Flask(__name__)
 CORS(app)  # Restrict domains in production
